@@ -1,0 +1,9 @@
+fastapi>=0.100.0
+uvicorn>=0.20.0
+langchain>=0.1.0
+langchain-openai>=0.0.2
+python-dotenv>=1.0.0
+mcp==1.9.4
+httpx>=0.25.0
+pydantic>=2.0.0
+requests>=2.31.0 

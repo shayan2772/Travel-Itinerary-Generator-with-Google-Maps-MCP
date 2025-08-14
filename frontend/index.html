@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Assistant - AI-Powered Travel Planning</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#667eea',
+                        secondary: '#764ba2',
+                        accent: '#48bb78'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.3s ease-out',
+                        'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 h-screen overflow-hidden">
+    <div class="flex flex-col h-screen">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-primary to-secondary text-white shadow-lg relative overflow-hidden">
+            <div class="absolute inset-0 bg-black opacity-5"></div>
+            <div class="relative z-10 text-center py-6 px-4">
+                <h1 class="text-3xl font-bold mb-2 tracking-tight">🌍 Travel Assistant</h1>
+                <p class="text-blue-100 text-sm font-medium">Your AI-powered travel planning companion</p>
+            </div>
+            <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-16 -mt-16"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full -ml-12 -mb-12"></div>
+        </header>
+
+        <!-- Main Chat Interface -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <div class="flex-1 max-w-4xl mx-auto w-full px-4 flex flex-col">
+                <!-- Chat Messages Area -->
+                <div class="flex-1 overflow-y-auto py-6 space-y-4 scroll-smooth" id="chatMessages" style="max-height: calc(100vh - 200px); min-height: 300px;">
+                    <div class="flex items-start space-x-3 animate-fade-in">
+                        <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white text-lg shadow-md">
+                            🤖
+                        </div>
+                        <div class="flex-1 max-w-3xl">
+                            <div class="bg-white rounded-2xl rounded-tl-md shadow-sm border border-gray-100 p-4">
+                                <div class="text-gray-800 leading-relaxed">
+                                    <div class="font-medium text-gray-900 mb-2">Welcome! I'm your travel assistant 🗺️</div>
+                                    <div class="space-y-1 text-sm">
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-blue-500">✈️</span>
+                                            <span>Create detailed itineraries for any destination</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-green-500">🍽️</span>
+                                            <span>Find restaurants, hotels, and attractions with photos</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-purple-500">🧭</span>
+                                            <span>Get directions and Google Maps links</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-orange-500">❓</span>
+                                            <span>Answer questions about places and travel</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 text-sm text-gray-600">
+                                        Just tell me where you'd like to go and for how long!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input Area -->
+                <div class="bg-white/80 backdrop-blur-sm border-t border-gray-200 p-4 space-y-4">
+                    <!-- Suggestions -->
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button class="suggestion-btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg" data-suggestion="Plan a 5-day trip to Tokyo">
+                            🗾 Tokyo Adventure
+                        </button>
+                        <button class="suggestion-btn bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg" data-suggestion="Best restaurants in Paris">
+                            🍽️ Paris Dining
+                        </button>
+                        <button class="suggestion-btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg" data-suggestion="3-day weekend in New York">
+                            🏙️ NYC Weekend
+                        </button>
+                    </div>
+
+                    <!-- Input -->
+                    <div class="flex items-end space-x-3">
+                        <div class="flex-1 relative">
+                            <input 
+                                type="text" 
+                                id="chatInput" 
+                                placeholder="Ask me about travel plans, destinations, or anything travel-related..."
+                                autocomplete="off"
+                                class="w-full border-2 border-gray-200 rounded-2xl px-6 py-3 pr-4 text-gray-800 placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-200 bg-white shadow-sm"
+                            >
+                        </div>
+                        <button id="sendButton" class="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transform rotate-45">
+                                <path d="m22 2-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Status Bar -->
+        <div class="bg-white border-t border-gray-200 px-4 py-2">
+            <div class="max-w-4xl mx-auto flex items-center justify-center">
+                <div class="flex items-center space-x-2 text-sm" id="statusIndicator">
+                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse-slow"></div>
+                    <span class="text-gray-600">Connected</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html> 
